@@ -1,6 +1,7 @@
 const plugins = [
+	// 'taro-plugin-compiler-optimization'
 	// [
-	// 	'@tarox/plugin-init-app',
+	'@tarox/plugin-init-app',
 	// 	{
 	// 		// 配置首页路由
 	// 		homeRoute: 'pages/index/index',
