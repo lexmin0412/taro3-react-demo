@@ -4,7 +4,7 @@ import { HOSTS } from '@/constants/index'
 /**
  * 药品相关服务
  */
-class DrugService extends BaseRequest {
+class CodeService extends BaseRequest {
 	constructor() {
 		super({
 			hostKey: HOSTS.TARO_API_BASE,
@@ -14,14 +14,12 @@ class DrugService extends BaseRequest {
 	/**
 	 * 根据药品获取疾病
 	 */
-	queryDiseaseByDrugName(payload: {
-		ComName: string // 药品名称 多个药品用_隔开
-	}) {
-		return this.post({
-			url: '/drug/queryDiseaseByDrug',
+	getCodeByType(payload: { type: 'hello_world' | 'modal' }) {
+		return this.get({
+			url: '/code/hello_world',
 			data: payload,
 		})
 	}
 }
 
-export default new DrugService()
+export default new CodeService()
