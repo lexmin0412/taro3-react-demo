@@ -5,6 +5,20 @@ import Router from '@/utils/route'
 
 import './index.scss'
 
+import { runInContext } from 'evil-eval'
+
+const code = `
+    function hello(name) {
+        return 'Hello ' + (name || defaultName) + '!';
+    }
+
+    module.exports = hello;
+`
+
+const sandbox = { defaultName: 'World' }
+const hello = runInContext(code, sandbox)
+hello()
+
 const Index = (): JSX.Element => {
 	useEffect(() => {
 		console.log('process.env', process.env.TARO_ENV)
