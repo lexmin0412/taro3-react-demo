@@ -2,22 +2,11 @@ import React, { useEffect } from 'react'
 import { View } from '@tarojs/components'
 import { XButton } from 'taro-x-ui'
 import Router from '@/utils/route'
+import CodeService from '@/services/root/code.service'
 
 import './index.scss'
 
 import { runInContext } from 'evil-eval'
-
-const code = `
-    function hello(name) {
-        return 'Hello ' + (name || defaultName) + '!';
-    }
-
-    module.exports = hello;
-`
-
-const sandbox = { defaultName: 'World' }
-const hello = runInContext(code, sandbox)
-hello()
 
 const Index = (): JSX.Element => {
 	useEffect(() => {
@@ -41,9 +30,19 @@ const Index = (): JSX.Element => {
 		}
 	}
 
+	const excuteDynamicCode = async () => {
+		const result: any = await CodeService.getCodeByType({
+			type: 'hello_world',
+		})
+		const sandbox = { defaultName: 'World' }
+		const hello = runInContext(result.data, sandbox)
+		console.log('hello()', hello())
+	}
+
 	return (
 		<View className='index'>
 			<XButton onClick={() => jumpToDemo('router')}>路由跳转</XButton>
+			<XButton onClick={() => excuteDynamicCode()}>测试代码执行</XButton>
 		</View>
 	)
 }
